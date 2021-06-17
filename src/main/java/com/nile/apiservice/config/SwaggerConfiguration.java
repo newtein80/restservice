@@ -1,4 +1,4 @@
-package com.nile.apiservice.common;
+package com.nile.apiservice.config;
 
 import java.util.ArrayList;
 import java.util.Collections;
