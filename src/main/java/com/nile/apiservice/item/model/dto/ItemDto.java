@@ -20,19 +20,19 @@ import lombok.NoArgsConstructor;
 @Schema(name = "아이템 상세 정보 DTO", description = "Item's Data Transfer Object")
 public class ItemDto {
 
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="itemId", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private Long itemId;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="title", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private String title;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="content", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private String content;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="views", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private Long views;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="createDt", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private Date createDt;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="itemType", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private ItemType itemType;
-    @Schema(name="sampleTitle", description = "제목", required = true, example = "ex) 제목", nullable = false)
+    @Schema(name="topItem", description = "제목", required = true, example = "ex) 제목", nullable = false)
     private Boolean topItem;
 
     public static ItemDto of(Item item) {

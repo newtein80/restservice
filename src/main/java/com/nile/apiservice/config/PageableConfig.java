@@ -14,14 +14,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class PageableConfig implements WebMvcConfigurer{
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new PageableArgumentResolver());
-    }
+    // @Override
+    // public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    //     resolvers.add(new PageableArgumentResolver());
+    // }
 
-    @Bean(name="customPageResourceAssembler")
-    @Primary
-    public CustomPageResourceAssembler<?> customPagedResourceAssembler(){
-        return new CustomPageResourceAssembler<>(new HateoasPageableHandlerMethodArgumentResolver(),10);
-    }
+    // @Bean(name="customPageResourceAssembler")
+    // @Primary
+    // public CustomPageResourceAssembler<?> customPagedResourceAssembler(){
+    //     return new CustomPageResourceAssembler<>(new HateoasPageableHandlerMethodArgumentResolver(),10);
+    // }
 }
