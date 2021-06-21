@@ -7,6 +7,15 @@
 - FLYWAY
 - HATEOAS
 
+https://www.youtube.com/channel/UCFJILtcwOAdTc_WaCABuagA/videos
+
+-- 여기부터
+https://www.youtube.com/watch?v=tESYp3NjgWI
+
+https://kogle.tistory.com/22
+https://goodgid.github.io/Spring-Data-JPA-Query_Part_2/
+
+
 https://dzone.com/articles/doing-more-with-springdoc-openapi
 https://github.com/teq-niq/sample/blob/springdoc-openapi-doingmore-simplerfqn-new-ver/src/main/java/sample/GlobalControllerAdvice.java
 https://oingdaddy.tistory.com/272
