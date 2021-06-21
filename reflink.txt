@@ -6,6 +6,10 @@ https://www.youtube.com/watch?v=tESYp3NjgWI
 https://kogle.tistory.com/22
 https://goodgid.github.io/Spring-Data-JPA-Query_Part_2/
 
+https://jojoldu.tistory.com/361
+https://prinha.tistory.com/entry/Spring-Boot-RESTful-Service-%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC3-%EA%B8%B0%EB%8A%A5-%ED%99%95%EC%9E%A5
+https://wky.kr/13
+https://addio3305.tistory.com/101
 
 https://dzone.com/articles/doing-more-with-springdoc-openapi
 https://github.com/teq-niq/sample/blob/springdoc-openapi-doingmore-simplerfqn-new-ver/src/main/java/sample/GlobalControllerAdvice.java

@@ -2,18 +2,27 @@ package com.nile.apiservice.factory.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.nile.apiservice.factory.model.entity.Employee;
 import com.nile.apiservice.factory.repository.EmployeeRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+// @RequiredArgsConstructor
 @Service
-@RequiredArgsConstructor
 public class EmployeeService {
     
-    private final EmployeeRepository employeeRepository;
+    @Autowired
+    public EmployeeRepository employeeRepository;
+
+    public EmployeeService() {
+        super();
+    }
 
     public List<Employee> saveAllEmployee(List<Employee> employees) {
         return this.employeeRepository.saveAll(employees);

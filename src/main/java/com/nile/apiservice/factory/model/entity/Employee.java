@@ -8,10 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(schema = "rest", name = "t_employee_info")
@@ -34,6 +38,8 @@ public class Employee {
 
     @Column(name = "joiningdate")
     @NotNull
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private String joiningdate;
 
     @Column(name = "age")
