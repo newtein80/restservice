@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/nileapi/factory")
+@RequestMapping("/v1/nileapi/city")
 public class CityController {
     private final CityService cityService;
 
