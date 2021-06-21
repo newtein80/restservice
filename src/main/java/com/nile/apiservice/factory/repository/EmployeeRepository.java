@@ -6,6 +6,8 @@ import java.util.List;
 import com.nile.apiservice.factory.model.entity.Employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
     Employee findById(int id);
@@ -40,5 +42,17 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
     List<Employee> findByLeftjobTrue();
     List<Employee> findByLeftjobFalse();
     List<Employee> findByLeftjob(boolean leftjob);
+
+    @Query(value = "select gettotaldetailcount()", nativeQuery = true)
+    int NqgetTotalEmployees();
+
+    @Procedure(procedureName = "gettotaldetailcount")
+    int ProcgetTotalEmployees();
+
+    @Query(value = "select getprocsingleoutput(?1)", nativeQuery = true)
+    int NqgetTotalEmployeesingleoutput(int employeeid);
+
+    @Procedure(procedureName = "getprocsingleoutput")
+    int ProcgetTotalEmployeesingleoutput(int employeeid);
 
 }

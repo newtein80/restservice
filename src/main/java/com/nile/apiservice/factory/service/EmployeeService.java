@@ -48,5 +48,20 @@ public class EmployeeService {
         System.out.println("Before Persist");
         return this.employeeRepository.save(employee);
     }
+
+    public int getTotalEmployeesCount() {
+        return this.employeeRepository.NqgetTotalEmployees();
+    }
     
+    public int getTotalEmployeesCountProc() {
+        return this.employeeRepository.ProcgetTotalEmployees();
+    }
+
+    public int getTotalEmployeeCountSingleOutput(int employeeid) {
+        return this.employeeRepository.NqgetTotalEmployeesingleoutput(employeeid);
+    }
+
+    public int getTotalEmployeeCountSingleOutputProc(int employeeid) {
+        return this.employeeRepository.ProcgetTotalEmployeesingleoutput(employeeid);
+    }
 }

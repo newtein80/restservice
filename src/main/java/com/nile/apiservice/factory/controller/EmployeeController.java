@@ -115,4 +115,28 @@ public class EmployeeController {
     ) {
         return this.employeeRepository.findByEmployeenameEndingWith(employeename);
     }
+
+    @GetMapping("/totalemployeecount")
+    public int getTotalEmployeeCount() {
+        return this.employeeService.getTotalEmployeesCount();
+    }
+
+    @GetMapping("/totalemployeecountproc")
+    public int getTotalEmployeeCountProc() {
+        return this.employeeService.getTotalEmployeesCountProc();
+    }
+
+    @GetMapping("/totalemployeecountsingleoutput")
+    public int getTotalEmployeeCountSingleOutput(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getTotalEmployeeCountSingleOutput(employeeid);
+    }
+
+    @GetMapping("/totalemployeecountsingleoutputproc")
+    public int getTotalEmployeeCountSingleOutputProc(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getTotalEmployeeCountSingleOutputProc(employeeid);
+    }
 }
