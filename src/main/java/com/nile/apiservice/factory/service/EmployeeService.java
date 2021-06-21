@@ -34,5 +34,10 @@ public class EmployeeService {
     public List<Employee> findEmployeesByName(String employeename) {
         return this.employeeRepository.findByEmployeename(employeename);
     }
+
+    public Employee saveEmployee(Employee employee) {
+        System.out.println("Before Persist");
+        return this.employeeRepository.save(employee);
+    }
     
 }

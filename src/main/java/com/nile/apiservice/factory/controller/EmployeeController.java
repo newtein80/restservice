@@ -2,11 +2,15 @@ package com.nile.apiservice.factory.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 import com.nile.apiservice.factory.model.entity.Employee;
 import com.nile.apiservice.factory.repository.EmployeeRepository;
 import com.nile.apiservice.factory.service.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/nileapi/employee")
+@Validated
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -30,6 +35,14 @@ public class EmployeeController {
         @RequestBody List<Employee> employees
     ) {
         return this.employeeService.saveAllEmployee(employees);
+    }
+
+    @PostMapping("/addemployee")
+    public Employee addEmployee(
+        @Valid @RequestBody Employee employee
+    ) {
+        System.out.println("Inside endpoint");
+        return this.employeeService.saveEmployee(employee);
     }
 
     @GetMapping("/allemployees")
@@ -46,7 +59,7 @@ public class EmployeeController {
 
     @GetMapping("/employeebyid")
     public Employee getEmployeeById(
-        @RequestParam int id
+        @RequestParam @Min(value = 1, message = "Employee ID should be greater than 0") int id
     ) {
         return this.employeeService.findEmployeeById(id);
     }
