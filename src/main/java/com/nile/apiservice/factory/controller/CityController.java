@@ -2,6 +2,7 @@ package com.nile.apiservice.factory.controller;
 
 import java.util.List;
 
+import com.nile.apiservice.factory.model.dto.CityRequest;
 import com.nile.apiservice.factory.model.entity.City;
 import com.nile.apiservice.factory.service.CityService;
 
@@ -51,9 +52,27 @@ public class CityController {
     @GetMapping("/{cityname}")
     @ResponseStatus(HttpStatus.OK)
     public City getCity(
-        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable String cityname
+        @Parameter(name = "도시명", required = true, example = "1")  @PathVariable String cityname
     ) {
         return this.cityService.getCityByName(cityname);
+    }
+
+    @Operation(summary = "도시 상세 - by 도시명 2nd", description = "<strong>도시 상세 내용</strong>을 조회")
+    @GetMapping("/getCity")
+    @ResponseStatus(HttpStatus.OK)
+    public City getCityInfo(
+        @Parameter(name = "도시명", required = true, example = "1") String cityname
+    ) {
+        return this.cityService.getCityByName(cityname);
+    }
+
+    @Operation(summary = "도시 등록 - by request'dto", description = "신규 도시 등록")
+    @PostMapping("/saveCity")
+    @ResponseStatus(HttpStatus.CREATED)
+    public City addCityWithCountry(
+        @Parameter(name = "도시 정보", required = true) @RequestBody CityRequest cityRequest
+    ) {
+        return this.cityService.addCity(cityRequest);
     }
 
 }

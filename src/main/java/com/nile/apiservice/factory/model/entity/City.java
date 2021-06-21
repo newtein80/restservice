@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,4 +35,11 @@ public class City {
 
     @Transient
     private String beanid;
+
+    @Column(name = "country_id")
+    private int countryid;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id", insertable = false, updatable = false)
+    private Country country;
 }
