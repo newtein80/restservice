@@ -30,7 +30,7 @@ public class CourseInfo {
     private String content;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "rest.t_course_mapping")
+    @ManyToMany(mappedBy = "courseinfos") // 변수명!!
     private Set<Course> courses = new HashSet<>();
 
     public void addCourse(Course course) {

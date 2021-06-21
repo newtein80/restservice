@@ -24,8 +24,8 @@ public class Employee {
     @Column(name = "department")
     private String department;
 
-    @Column(name = "regdate")
-    private String regdate;
+    @Column(name = "joiningdate")
+    private String joiningdate;
 
     @Column(name = "age")
     private int age;

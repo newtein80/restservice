@@ -1,5 +1,6 @@
 package com.nile.apiservice.factory.model.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,5 +37,5 @@ public class Course {
     @JsonIgnore
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(schema = "rest", name = "t_course_mapping", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "content_id"))
-    private Set<CourseInfo> courseinfos;
+    private Set<CourseInfo> courseinfos = new HashSet<>();
 }
