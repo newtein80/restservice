@@ -1,6 +1,7 @@
 package com.nile.apiservice.factory.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.nile.apiservice.factory.model.dto.CityRequest;
 import com.nile.apiservice.factory.model.entity.City;
@@ -36,5 +37,25 @@ public class CityService {
         city.setCitycode(cityRequest.citycode);
         city.setCountry(country);
         return this.cityRepository.save(city);
+    }
+
+    public Country getCountry(int id) {
+        return this.countryRepository.getById(id);
+    }
+
+    public List<Country> getCountryByName(String countrynameprefix) {
+        return this.countryRepository.getByCountryname(countrynameprefix);
+    }
+
+    public List<Object[]> getCountryByNameAndPopulation(String prefix, long population) {
+        return this.countryRepository.getByCountrynameAndPopulation(prefix, population);
+    }
+
+    public List<Object[]> getCountryByNameAndPopulationNative(String prefix, long population) {
+        return this.countryRepository.getByCountrynameAndPopulationNative(prefix, population);
+    }
+
+    public List<Country> getCountryByIds(Set<Integer> ids) {
+        return this.countryRepository.getByIds(ids);
     }
 }

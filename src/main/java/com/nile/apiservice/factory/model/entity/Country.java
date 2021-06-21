@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.lang.NonNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,4 +36,7 @@ public class Country {
     @JoinColumn(name = "country_id")
     @JsonIgnore
     private Set<City> cities;
+
+    @NonNull
+    private long population;
 }
