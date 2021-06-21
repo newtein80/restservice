@@ -48,4 +48,14 @@ public class SampleService {
     public void deleteSample(long sampleId) {
         this.sampleRepository.deleteById(sampleId);
     }
+
+    @Transactional(readOnly = true)
+    public void testSamples() {
+        this.sampleRepository.findSampleSearchTitleAndContent("sampleTitle", "sampleContent");
+    }
+
+    @Transactional(readOnly = true)
+    public int gettotaldetailcount() {
+        return this.sampleRepository.gettotaldetailcount();
+    }
 }

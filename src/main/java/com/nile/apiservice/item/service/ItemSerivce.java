@@ -34,10 +34,10 @@ public class ItemSerivce {
         
     }
 
-    public Page<ItemDto> getPagedAllItems(Pageable pageable) {
-        return this.itemRepository.findByAllCustom(pageable).map(
-            item -> new ItemDto(item.getItemId(), item.getTitle(), item.getContent(), item.getViews(), item.getCreateDt(), item.getItemType(), item.isTopItem())
-        );
-    }
+    // public Page<ItemDto> getPagedAllItems(Pageable pageable) {
+    //     return this.itemRepository.findByAllCustom(pageable).map(
+    //         item -> new ItemDto(item.getItemId(), item.getTitle(), item.getContent(), item.getViews(), item.getCreateDt(), item.getItemType(), item.isTopItem())
+    //     );
+    // }
 
 }

@@ -48,6 +48,6 @@ public class ItemController {
         })
         Pageable pageable
     ) {
-        return this.itemSerivce.getPagedAllItems(pageable);
+        return null;
     }
 }

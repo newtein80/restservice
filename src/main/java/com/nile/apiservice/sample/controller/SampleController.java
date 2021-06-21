@@ -77,4 +77,11 @@ public class SampleController {
     ) {
         this.sampleService.deleteSample(sampleId);
     }
+
+    @Operation(summary = "funcation test - return integer", description = "함수 실행 테스트")
+    @GetMapping("/count")
+    @ResponseStatus(HttpStatus.OK)
+    public int getFunctionTest() {
+        return this.sampleService.gettotaldetailcount();
+    }
 }

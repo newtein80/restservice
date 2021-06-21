@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemRepository extends JpaRepository<Item, Long>{
     Page<Item> findByTitle(String title, Pageable pageable);
-    Page<Item> findByAllCustom(Pageable pageable);
 }
