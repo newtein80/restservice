@@ -175,4 +175,11 @@ public class EmployeeController {
     ) {
         return this.employeeService.getEntityMngEmployeeInfo(employeeid);
     }
+
+    @GetMapping("/employeeinfocursoroutputbynamedproc")
+    public Object getEmployeeInfoCursorOutputByNamedProc(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getEntityMngEmployeeInfoOutputCursor(employeeid);
+    }
 }

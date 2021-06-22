@@ -50,6 +50,12 @@ import com.nile.apiservice.factory.model.dto.EmployeeResultSet;
         parameters = {
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class)
         }
+    ),
+    @NamedStoredProcedureQuery(name = "emp.GetEmpNameAndDeptCursor", procedureName = "getproccursoroutput", resultClasses = {Employee.class},
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class), // * name property가 없을 경우 parameters 에 선언된 순서에 의해 set하여도 된다.
+            @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "v_ref_cursor", type = void.class)
+        }
     )
 })
 public class Employee {

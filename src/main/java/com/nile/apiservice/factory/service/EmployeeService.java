@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import javax.transaction.Transactional;
 
 import com.nile.apiservice.factory.model.dto.EmployeeResultSet;
 import com.nile.apiservice.factory.model.entity.Employee;
@@ -88,6 +89,17 @@ public class EmployeeService {
     public List<EmployeeResultSet> getEntityMngEmployeeInfo(int employeeid) {
         StoredProcedureQuery sProcedureQuery = entityManager.createNamedStoredProcedureQuery("emp.GetEmpNameAndDeptTableSet");
         sProcedureQuery.setParameter("employeeid", employeeid);
+        sProcedureQuery.execute();
+        // todo: 아래의 경고 문구 해결 방법?
+        return sProcedureQuery.getResultList();
+        
+    }
+
+    @Transactional
+    public List<EmployeeResultSet> getEntityMngEmployeeInfoOutputCursor(int employeeid) {
+        StoredProcedureQuery sProcedureQuery = entityManager.createNamedStoredProcedureQuery("emp.GetEmpNameAndDeptCursor");
+        // sProcedureQuery.setParameter("employeeid", employeeid);
+        sProcedureQuery.setParameter(2, employeeid); // * 위의 NamedStoredProcedure 선언된 곳의 param 순서에 맞게 set 하여도 된다.
         sProcedureQuery.execute();
         // todo: 아래의 경고 문구 해결 방법?
         return sProcedureQuery.getResultList();
