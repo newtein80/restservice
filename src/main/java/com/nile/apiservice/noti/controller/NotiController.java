@@ -36,7 +36,7 @@ public class NotiController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Noti> getSamples() {
+    public List<NotiDto> getSamples() {
         return this.notiService.getAllNotis();
     }
 

@@ -1,6 +1,7 @@
 package com.nile.apiservice.noti.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.nile.apiservice.noti.dto.NotiDto;
 import com.nile.apiservice.noti.entity.Noti;
@@ -48,8 +49,12 @@ public class NotiService {
         return new NotiDto(noti.getId(), noti.getSender_user_id(), noti.getSender_user_nm(), noti.getNoti_type(), noti.getNoti_title(), noti.getNoti_body(), noti.getRecipient_user_id(), noti.getRecipient_user_nm(), noti.getCreate_dt());
     }
 
-    public List<Noti> getAllNotis() {
-        return this.notiRepository.findAll();
+    public List<NotiDto> getAllNotis() {
+        // return this.notiRepository.findAll();
+        return this.notiRepository.findAll().stream().map(
+            noti -> new NotiDto(noti.getId(), noti.getSender_user_id(), noti.getSender_user_nm(), noti.getNoti_type(), noti.getNoti_title(), noti.getNoti_body(), noti.getRecipient_user_id(), noti.getRecipient_user_nm(), noti.getCreate_dt())
+        )
+        .collect(Collectors.toList());
     }
 
     public Noti addNoti(Noti noti) {
