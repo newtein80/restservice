@@ -13,6 +13,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -67,7 +69,8 @@ public class Noti {
     private String is_hidden;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Date create_dt;
 
     @Column(columnDefinition = "TEXT")

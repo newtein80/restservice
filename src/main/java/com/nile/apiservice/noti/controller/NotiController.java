@@ -2,6 +2,7 @@ package com.nile.apiservice.noti.controller;
 
 import java.util.List;
 
+import com.nile.apiservice.noti.dto.NotiDto;
 import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.service.NotiService;
 
@@ -51,7 +52,7 @@ public class NotiController {
     @Operation(summary = "샘플 상세", description = "<strong>샘플 상세 내용</strong>을 조회")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Noti getSample(
+    public NotiDto getSample(
         @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
     ) {
         return this.notiService.getNoti(id);

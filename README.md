@@ -10,6 +10,7 @@
 
 >해야할것
 >- paging
+>- multiple primary key entity
 >- cud 될 때 response 에 대한 공통 클래스 고려
 >- exception
 >- @Query, @Procedure 에서 schema 선택하기

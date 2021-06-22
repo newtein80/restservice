@@ -29,13 +29,14 @@ public class ApiserviceApplication {
 	// * Date convert
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer(){
+		// ! 응답 json의 date format을 지정하는 부분
 		return builder ->{
-			builder.simpleDateFormat(dateFormat);
+			builder.simpleDateFormat(dateTimeFormat);
 			// ! google-search: spring.jackson.time-zone korea
 			// ! https://jojoldu.tistory.com/361
 			// ! https://wky.kr/13
 			builder.timeZone(TimeZone.getTimeZone("Asia/Seoul"));
-			builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
+			builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
 			builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
 			builder.serializers(new ZonedDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
 		};
