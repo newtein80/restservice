@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class Noti {
     @Id
     @Column(name = "noti_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) // todo: 현재 sse v7.0 의 t_notification 테이블의 id 는 시퀀스로 정의되어 있지 않음 (sequence로 변경 할 경우 관련 sp 모두 변경 필요)
-    @JsonIgnore // * json response 될 때 무시되는 변수
+    // @JsonIgnore // * json response 될 때 무시되는 변수
     private Long id;
 
     @NotNull(message = "The sent user ID is required.")

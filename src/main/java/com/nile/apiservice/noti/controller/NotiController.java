@@ -25,7 +25,7 @@ public class NotiController {
 
     private final NotiService notiService;
 
-    @Operation(summary = "샘플 현황", description = "<big>샘플 현황을 조회</big>",
+    @Operation(summary = "샘플 현황", description = "<big style='color: red;'>샘플 현황</big>을 조회",
         responses = {
             @ApiResponse(responseCode = "200", description = "OK !!"), // code : 응답코드를 작성. message : 응답에 대한 설명을 작성. responseHeaders : 응답 헤더
             @ApiResponse(responseCode = "500", description = "Internal Server Error !!"),
