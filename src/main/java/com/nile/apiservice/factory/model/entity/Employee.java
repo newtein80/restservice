@@ -1,6 +1,7 @@
 package com.nile.apiservice.factory.model.entity;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class Employee {
     @NotNull
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    private String joiningdate;
+    private Date joiningdate; // ! @Temporal should only be set on a java.util.Date or java.util.Calendar property --> @Temporal annotation은 Date 타입에만 사용가능하다.
 
     @Column(name = "age")
     @NotNull(message = "Age is required")
