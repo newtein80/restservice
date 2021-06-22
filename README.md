@@ -17,6 +17,17 @@ https://www.youtube.com/watch?v=N7nLUQMmjxs
 https://www.youtube.com/watch?v=w6XoZ3Luzus
 https://www.youtube.com/watch?v=hmSPJHtZyp4
 
+google-search: jpa criteria api vs querydsl
+https://velog.io/@neity16/4-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8%EC%99%80-JPA-%ED%99%9C%EC%9A%A9-4-%EB%8F%99%EC%A0%81-%EC%BF%BC%EB%A6%AC-JPQL-vs-Criteria-vs-QueryDSL
+https://www.baeldung.com/intro-to-querydsl
+https://kimyhcj.tistory.com/356
+https://wwlee94.github.io/category/study/jpa-programming/chapter6-object-oriented-query-language/
+https://stackoverflow.com/questions/53325506/criteria-api-vs-querydsl-vs-jpa-metamodel
+https://webcoding-start.tistory.com/60
+https://kohen.tistory.com/4
+google-search: jpa querydsl pageable
+google-search: JPA Specification
+
 #### 해야 할 것
 - jpa paging (pageable, page 사용)
 - exception
