@@ -1,6 +1,7 @@
 package com.nile.apiservice.factory.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -138,5 +139,12 @@ public class EmployeeController {
         @RequestParam int employeeid
     ) {
         return this.employeeService.getTotalEmployeeCountSingleOutputProc(employeeid);
+    }
+
+    @GetMapping("/totalemployeecountmultipleoutput")
+    public Map<String, ?> getTotalEmployeeCountMultipleOutput(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getTotalEmployeeCountMultipleOutput(employeeid);
     }
 }

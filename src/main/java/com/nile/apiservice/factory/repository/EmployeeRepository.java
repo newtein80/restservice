@@ -2,6 +2,7 @@ package com.nile.apiservice.factory.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.nile.apiservice.factory.model.entity.Employee;
 
@@ -54,5 +55,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
 
     @Procedure(procedureName = "getprocsingleoutput")
     int ProcgetTotalEmployeesingleoutput(int employeeid);
+
+    @Query(value = "select * from getprocmultipleoutput(?1)", nativeQuery = true)
+    Map<String, ?> NqgetTotalEmployeemultipleoutput(int employeeid);
+
+    // @Procedure(procedureName = "getprocmultipleoutput")
+    // int ProcgetTotalEmployeemultipleoutput(int employeeid);
 
 }

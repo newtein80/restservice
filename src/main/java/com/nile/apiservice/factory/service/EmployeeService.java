@@ -1,6 +1,7 @@
 package com.nile.apiservice.factory.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -63,5 +64,9 @@ public class EmployeeService {
 
     public int getTotalEmployeeCountSingleOutputProc(int employeeid) {
         return this.employeeRepository.ProcgetTotalEmployeesingleoutput(employeeid);
+    }
+
+    public Map<String, ?> getTotalEmployeeCountMultipleOutput(int employeeid) {
+        return this.employeeRepository.NqgetTotalEmployeemultipleoutput(employeeid);
     }
 }
