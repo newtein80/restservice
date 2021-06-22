@@ -8,6 +8,15 @@
 - FLYWAY
 - HATEOAS
 
+https://www.youtube.com/watch?v=ePCeuiIJbBI
+https://www.youtube.com/watch?v=HgB90XUmpeE
+https://www.youtube.com/watch?v=wJBAFZv_KN0
+https://www.youtube.com/watch?v=B-IHz3oVUG8
+https://www.youtube.com/watch?v=Xbk9z7oarYU
+https://www.youtube.com/watch?v=N7nLUQMmjxs
+https://www.youtube.com/watch?v=w6XoZ3Luzus
+https://www.youtube.com/watch?v=hmSPJHtZyp4
+
 #### 해야 할 것
 - jpa paging (pageable, page 사용)
 - exception
@@ -24,6 +33,10 @@
 - @Query, @Procedure 에서 schema 선택하기
 - sql 실행(jpa)
 - flyway query script 실행 순서 조정
+
+#### 알아봐야 할 것
+- @PathVariable, @RequestBody, @RequestParam
+- Datetime 검색 (orElse 쓰는방법으로)
 
 #### 관련기능
 noti

@@ -1,15 +1,21 @@
 package com.nile.apiservice.noti.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.nile.apiservice.noti.dto.NotiDto;
-import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.service.NotiService;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,36 +32,101 @@ public class NotiController {
 
     private final NotiService notiService;
 
-    @Operation(summary = "샘플 현황", description = "<big style='color: red;'>샘플 현황</big>을 조회",
+    /**
+     * 알림 현황 조회
+     * @return List<NotiDto> 알림 리스트
+     */
+    @Operation(summary = "알림 현황 - jpa : findAll", description = "<big>알림 현황</big>을 조회<br />- JPA default",
         responses = {
-            @ApiResponse(responseCode = "200", description = "OK !!"), // code : 응답코드를 작성. message : 응답에 대한 설명을 작성. responseHeaders : 응답 헤더
+            @ApiResponse(responseCode = "200", description = "OK !!"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error !!"),
             @ApiResponse(responseCode = "404", description = "Not Found !!")
         }
-    ) // 한 개의 operation(즉 API URL과 Method)을 선언. value : API에 대한 간략한 설명(제목같은 느낌으로)을 작성. notes: 더 자세한 설명을 작성
+    )
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<NotiDto> getSamples() {
+    public List<NotiDto> getAllNotis() {
         return this.notiService.getAllNotis();
     }
 
     /**
-     * @PathVariable, @RequestBody, @RequestParam
+     * 알림 상세 조회
+     * @param id 알림key
+     * @return NotiDto 알림 상세 정보
      */
-
-    /**
-     * 
-     * @param id
-     * @return
-     */
-    @Operation(summary = "샘플 상세", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @Operation(summary = "샘플 상세 - jpa : findById", description = "<strong>샘플 상세 내용</strong>을 조회")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public NotiDto getSample(
+    public NotiDto getNoti(
         @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
     ) {
         return this.notiService.getNoti(id);
+    }
+
+    @Operation(summary = "알림 현황 - jpa : findAll", description = "<big>알림 현황</big>을 조회<br />- JPA default<br />startdate ~ enddate --> between<br />startdate ~ --> after Dates after the startdate<br />~ enddate --> before Dates before the enddate<br />both do not exist --> 7 days ago from the current date",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK !!"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error !!"),
+            @ApiResponse(responseCode = "404", description = "Not Found !!")
+        }
+    )
+    @GetMapping("/createdt")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<NotiDto> getNotiByCreateDt(
+        @Parameter(name = "검색시작일", required = false, example = "2021-06-22", description = "-7") @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> startdate,
+        @Parameter(name = "검색종료일", required = false, example = "2021-06-27", description = "0" ) @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> enddate
+    ) {
+        /**
+         * 검색시작일 종료일 모두 존재: startdate ~ enddate --> between
+         * 검색시작일만 존재          : startdate ~         --> after  Dates after the startdate
+         * 검색종료일만 존재          :           ~ enddate --> before Dates before the enddate
+         * 검색시작일 종료일 모두 없음:                     --> 7 days ago from the current date
+         */
+
+        if (startdate.isPresent() && enddate.isPresent()) {
+            return this.notiService.getSearchNotiCreateDtBetween(startdate.get(), enddate.get());
+        }
+        else {
+            if (startdate.isPresent() && !enddate.isPresent()) {
+                // 시작일만 존재
+                return this.notiService.getSearchNotiCreateDtAfter(startdate.get());
+
+            }
+            else if (!startdate.isPresent() && enddate.isPresent()) {
+                // 종료일만 존재
+                return this.notiService.getSearchNotiCreateDtBefore(enddate.get());
+            }
+            else {
+                return this.notiService.getSearchNotiCreateDtBetween(setDateCalculate(new Date(), "start", -30), setDateCalculate(new Date(), "end", 0));
+            }
+        }
+        
+        // return this.notiService.getSearchNotiCreateDtBetween(startdate.orElse(new Date()), enddate.orElse(new Date()));
+        
+    }
+
+    public Date setDateCalculate(Date inputdate, String datetype, int addday) {
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        if (datetype.equals("end")) {
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            calendar.add(Calendar.DAY_OF_YEAR, addday);
+        }
+        else {
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.DAY_OF_YEAR, addday);
+        }
+
+        today = calendar.getTime();
+
+        return today;
     }
     
 }

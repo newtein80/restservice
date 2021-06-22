@@ -1,5 +1,6 @@
 package com.nile.apiservice.noti.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,13 +47,36 @@ public class NotiService {
         // ! https://goddaehee.tistory.com/209
         // return this.notiRepository.findById(id).orElseGet(Noti::new);
         Noti noti = this.notiRepository.findById(id).orElseThrow(NotiNotFoundException::new);
-        return new NotiDto(noti.getId(), noti.getSender_user_id(), noti.getSender_user_nm(), noti.getNoti_type(), noti.getNoti_title(), noti.getNoti_body(), noti.getRecipient_user_id(), noti.getRecipient_user_nm(), noti.getCreate_dt());
+        return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
     }
 
+    @Transactional(readOnly = true)
     public List<NotiDto> getAllNotis() {
         // return this.notiRepository.findAll();
         return this.notiRepository.findAll().stream().map(
-            noti -> new NotiDto(noti.getId(), noti.getSender_user_id(), noti.getSender_user_nm(), noti.getNoti_type(), noti.getNoti_title(), noti.getNoti_body(), noti.getRecipient_user_id(), noti.getRecipient_user_nm(), noti.getCreate_dt())
+            // todo: 아래의 구문을 NotiDto의 생성자를 사용하여 변경하는 방법으로 변경
+            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+        )
+        .collect(Collectors.toList());
+    }
+
+    public List<NotiDto> getSearchNotiCreateDtBetween(Date startdate, Date enddate) {
+        return this.notiRepository.findByCreatedtBetween(startdate, enddate).stream().map(
+            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
+        )
+        .collect(Collectors.toList());
+    }
+
+    public List<NotiDto> getSearchNotiCreateDtAfter(Date startdate) {
+        return this.notiRepository.findByCreatedtAfter(startdate).stream().map(
+            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
+        )
+        .collect(Collectors.toList());
+    }
+
+    public List<NotiDto> getSearchNotiCreateDtBefore(Date enddate) {
+        return this.notiRepository.findByCreatedtBefore(enddate).stream().map(
+            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
         )
         .collect(Collectors.toList());
     }

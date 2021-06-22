@@ -36,48 +36,54 @@ public class Noti {
 
     @NotNull(message = "The sent user ID is required.")
     @Size(min = 10, max = 32, message = "Sender user id accepts only upto 32 character and minimum 10 characters")
-    private String sender_user_id;
+    @Column(name = "sender_user_id")
+    private String senderuserid;
 
     @NotNull(message = "The sent user name is required.")
     @Size(min = 10, max = 64, message = "Sender user name accepts only upto 64 character and minimum 10 characters")
-    private String sender_user_nm;
+    @Column(name = "sender_user_nm")
+    private String senderusernm;
 
-    @Column(columnDefinition = "character varying(10) NULL")
-    private String noti_type;
+    @Column(name = "noti_type", columnDefinition = "character varying(10) NULL")
+    private String notitype;
 
     @Size(min = 1, max = 50, message = "Notification title accepts only upto 50 character and minimum 1 characters")
-    private String noti_title;
+    @Column(name = "noti_title")
+    private String notititle;
 
-    @Column(columnDefinition = "TEXT")
-    private String noti_body;
+    @Column(name = "noti_body", columnDefinition = "TEXT")
+    private String notibody;
 
     @Size(max = 512, message = "Notification title accepts only upto 50 character and minimum 1 characters")
-    private String noti_href;
+    @Column(name = "noti_href")
+    private String notihref;
 
     @NotNull(message = "The reception user ID is required.")
     @Size(min = 10, max = 32, message = "Reception user id accepts only upto 32 character and minimum 10 characters")
-    private String recipient_user_id;
+    @Column(name = "recipient_user_id")
+    private String recipientuserid;
 
     @NotNull(message = "The reception user name is required.")
     @Size(min = 10, max = 64, message = "Reception user name accepts only upto 64 character and minimum 10 characters")
-    private String recipient_user_nm;
+    @Column(name = "recipient_user_nm")
+    private String recipientusernm;
 
     @Column(name ="is_unread", columnDefinition = "character varying(1) not null default 'Y'")
-    private String is_unread;
+    private String isunread;
 
     @Column(name ="is_hidden", columnDefinition = "character varying(1) not null default 'N'")
-    private String is_hidden;
+    private String ishidden;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Date create_dt;
+    @Column(name ="create_dt", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Date createdt;
 
-    @Column(columnDefinition = "TEXT")
-    private String noti_detail;
+    @Column(name ="noti_detail", columnDefinition = "TEXT")
+    private String notidetail;
 
     public void setReadStatus() {
-        this.is_unread = "N";
+        this.isunread = "N";
     }
 
     /**
@@ -97,15 +103,15 @@ public class Noti {
             String noti_body,
             @NotNull(message = "The reception user ID is required.") @Size(min = 10, max = 32, message = "Reception user id accepts only upto 32 character and minimum 10 characters") String recipient_user_id,
             @NotNull(message = "The reception user name is required.") @Size(min = 10, max = 64, message = "Reception user name accepts only upto 64 character and minimum 10 characters") String recipient_user_nm) {
-        this.sender_user_id = sender_user_id;
-        this.sender_user_nm = sender_user_nm;
-        this.noti_type = noti_type;
-        this.noti_title = noti_title;
-        this.noti_body = noti_body;
-        this.recipient_user_id = recipient_user_id;
-        this.recipient_user_nm = recipient_user_nm;
-        this.is_unread = "Y";
-        this.is_hidden = "N";
+        this.senderuserid = sender_user_id;
+        this.senderusernm = sender_user_nm;
+        this.notitype = noti_type;
+        this.notititle = noti_title;
+        this.notibody = noti_body;
+        this.recipientuserid = recipient_user_id;
+        this.recipientusernm = recipient_user_nm;
+        this.isunread = "Y";
+        this.ishidden = "N";
     }
 
     
