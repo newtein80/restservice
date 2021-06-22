@@ -9,11 +9,11 @@
 - HATEOAS
 
 >해야할것
+>- paging
 >- exception
 >- @Query, @Procedure 에서 schema 선택하기
 >- sql 실행(jpa)
 >- flyway query script 실행 순서 조정
->- paging
 >- jwt 토큰
 >- 인증(사용자권한)
 
