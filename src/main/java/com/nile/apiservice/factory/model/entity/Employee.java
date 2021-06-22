@@ -23,6 +23,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(schema = "rest", name = "t_employee_info")
+@NamedStoredProcedureQuery(name = "emp.GetEmpNameAndDept", procedureName = "getprocmultipleoutput",
+    parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_name", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_desc", type = String.class)
+    }
+)
 public class Employee {
     
     @Id

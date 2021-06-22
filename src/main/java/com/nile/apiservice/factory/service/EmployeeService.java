@@ -66,7 +66,15 @@ public class EmployeeService {
         return this.employeeRepository.ProcgetTotalEmployeesingleoutput(employeeid);
     }
 
-    public Map<String, ?> getTotalEmployeeCountMultipleOutput(int employeeid) {
-        return this.employeeRepository.NqgetTotalEmployeemultipleoutput(employeeid);
+    public Map<String, ?> getEmployeeInfoMultipleOutput(int employeeid) {
+        return this.employeeRepository.NqgetEmployeeInfomultipleoutput(employeeid);
+    }
+
+    public Map<String, ?> getNamedProcEmpNameAndDept(int employeeid) {
+        return this.employeeRepository.NamedProcGetEmpNameAndDept(employeeid);
+    }
+
+    public Map<String, ?> getEmployeeInfoTableSetOutput(int employeeid) {
+        return this.employeeRepository.NqgetEmployeeInfotablesetoutput(employeeid);
     }
 }

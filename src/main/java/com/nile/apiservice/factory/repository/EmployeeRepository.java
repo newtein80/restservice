@@ -57,9 +57,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
     int ProcgetTotalEmployeesingleoutput(int employeeid);
 
     @Query(value = "select * from getprocmultipleoutput(?1)", nativeQuery = true)
-    Map<String, ?> NqgetTotalEmployeemultipleoutput(int employeeid);
+    Map<String, ?> NqgetEmployeeInfomultipleoutput(int employeeid);
 
-    // @Procedure(procedureName = "getprocmultipleoutput")
-    // int ProcgetTotalEmployeemultipleoutput(int employeeid);
+    @Procedure(name = "emp.GetEmpNameAndDept")
+    Map<String, ?> NamedProcGetEmpNameAndDept(int employeeid);
+
+    @Query(value = "select * from getproctablesetoutput(?1)", nativeQuery = true)
+    Map<String, ?> NqgetEmployeeInfotablesetoutput(int employeeid);
 
 }

@@ -141,10 +141,24 @@ public class EmployeeController {
         return this.employeeService.getTotalEmployeeCountSingleOutputProc(employeeid);
     }
 
-    @GetMapping("/totalemployeecountmultipleoutput")
-    public Map<String, ?> getTotalEmployeeCountMultipleOutput(
+    @GetMapping("/employeeinfomultipleoutput")
+    public Map<String, ?> getEmployeeInfoMultipleOutput(
         @RequestParam int employeeid
     ) {
-        return this.employeeService.getTotalEmployeeCountMultipleOutput(employeeid);
+        return this.employeeService.getEmployeeInfoMultipleOutput(employeeid);
+    }
+
+    @GetMapping("/employeeinfomultipleoutputbynamedproc")
+    public Map<String, ?> getEmployeeInfoMultipleOutputByNamedProc(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getNamedProcEmpNameAndDept(employeeid);
+    }
+
+    @GetMapping("/employeeinfotablesetoutput")
+    public Map<String, ?> getEmployeeInfoTableSetOutput(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getEmployeeInfoTableSetOutput(employeeid);
     }
 }
