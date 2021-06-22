@@ -35,15 +35,15 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
             openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(opertion -> {
                 ApiResponses apiResponses = opertion.getResponses();
 
-                ApiResponse apiResponse200 = new ApiResponse().description("Ok")
+                ApiResponse apiResponse200 = new ApiResponse().description("Ok --- ")
                 .content(new Content().addMediaType(org.springframework.http.MediaType.APPLICATION_JSON_VALUE, new MediaType()));
                 apiResponses.addApiResponse("200", apiResponse200);
 
-                ApiResponse apiResponse404 = new ApiResponse().description("Not found")
+                ApiResponse apiResponse404 = new ApiResponse().description("Not found --- ")
                 .content(new Content().addMediaType(org.springframework.http.MediaType.APPLICATION_JSON_VALUE, new MediaType()));
                 apiResponses.addApiResponse("404", apiResponse404);
 
-                ApiResponse apiResponse500 = new ApiResponse().description("Internal Server Error")
+                ApiResponse apiResponse500 = new ApiResponse().description("Internal Server Error --- ")
                 .content(new Content().addMediaType(org.springframework.http.MediaType.APPLICATION_JSON_VALUE, new MediaType()));
                 apiResponses.addApiResponse("500", apiResponse500);
 
