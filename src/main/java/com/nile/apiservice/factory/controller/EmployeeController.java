@@ -161,4 +161,18 @@ public class EmployeeController {
     ) {
         return this.employeeService.getEmployeeInfoTableSetOutput(employeeid);
     }
+
+    @GetMapping("/employeeinfotablesetoutputbynamedproc")
+    public Map<String, ?> getEmployeeInfoTableSetOutputByNamedProc(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getNamedProcEmployeeInfoTableSetOutput(employeeid);
+    }
+
+    @GetMapping("/employeeinfotablesetoutputbyentitymngproc")
+    public Object getEmployeeInfoTableSetOutputByEntitymngProc(
+        @RequestParam int employeeid
+    ) {
+        return this.employeeService.getEntityMngEmployeeInfo(employeeid);
+    }
 }

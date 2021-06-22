@@ -3,16 +3,16 @@ package com.nile.apiservice.factory.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
+import com.nile.apiservice.factory.model.dto.EmployeeResultSet;
 import com.nile.apiservice.factory.model.entity.Employee;
 import com.nile.apiservice.factory.repository.EmployeeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 // @RequiredArgsConstructor
 @Service
@@ -20,6 +20,9 @@ public class EmployeeService {
     
     @Autowired
     public EmployeeRepository employeeRepository;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     public EmployeeService() {
         super();
@@ -76,5 +79,18 @@ public class EmployeeService {
 
     public Map<String, ?> getEmployeeInfoTableSetOutput(int employeeid) {
         return this.employeeRepository.NqgetEmployeeInfotablesetoutput(employeeid);
+    }
+
+    public Map<String, ?> getNamedProcEmployeeInfoTableSetOutput(int employeeid) {
+        return this.employeeRepository.NamedProcGetEmployeeInfotablesetoutput(employeeid);
+    }
+
+    public List<EmployeeResultSet> getEntityMngEmployeeInfo(int employeeid) {
+        StoredProcedureQuery sProcedureQuery = entityManager.createNamedStoredProcedureQuery("emp.GetEmpNameAndDeptTableSet");
+        sProcedureQuery.setParameter("employeeid", employeeid);
+        sProcedureQuery.execute();
+        // todo: 아래의 경고 문구 해결 방법?
+        return sProcedureQuery.getResultList();
+        
     }
 }

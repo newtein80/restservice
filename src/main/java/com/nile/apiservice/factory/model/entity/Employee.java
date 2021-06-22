@@ -4,12 +4,16 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,16 +24,34 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nile.apiservice.factory.model.dto.EmployeeResultSet;
 
 @Entity
 @Table(schema = "rest", name = "t_employee_info")
-@NamedStoredProcedureQuery(name = "emp.GetEmpNameAndDept", procedureName = "getprocmultipleoutput",
-    parameters = {
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_name", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_desc", type = String.class)
+@SqlResultSetMapping(
+    name = "defEmployeeResultSet", classes = {
+        @ConstructorResult(targetClass = EmployeeResultSet.class,
+            columns = {
+                @ColumnResult(name = "test_name"),
+                @ColumnResult(name = "test_desc")
+            }
+        )
     }
 )
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(name = "emp.GetEmpNameAndDept", procedureName = "getprocmultipleoutput",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_name", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test_desc", type = String.class)
+        }
+    ),
+    @NamedStoredProcedureQuery(name = "emp.GetEmpNameAndDeptTableSet", procedureName = "getproctablesetoutput", resultSetMappings = {"defEmployeeResultSet"},
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "employeeid", type = Integer.class)
+        }
+    )
+})
 public class Employee {
     
     @Id

@@ -65,4 +65,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
     @Query(value = "select * from getproctablesetoutput(?1)", nativeQuery = true)
     Map<String, ?> NqgetEmployeeInfotablesetoutput(int employeeid);
 
+    @Procedure(name = "emp.GetEmpNameAndDeptTableSet")
+    Map<String, ?> NamedProcGetEmployeeInfotablesetoutput(int employeeid);
+
 }
