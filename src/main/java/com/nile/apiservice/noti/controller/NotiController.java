@@ -283,6 +283,18 @@ public class NotiController {
         return this.notiService.getQdslNotiByNotiIdOnlyRepository(id);
     }
 
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslonly/searchtitlebody")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<NotiDto> getQdslNotiByTitleOrBodyInOnlyRepository(
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String title,
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String body
+    ) {
+        // todo: requestparam 에 굳이 값을 넣지 않아도 되도록 하는 방법 ex. defaultvalue 또는 optional 같은 방법인 있는지???
+        return this.notiService.getQdslNotiByTitleOrBodyInOnlyRepository(title, body);
+    }
+
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();

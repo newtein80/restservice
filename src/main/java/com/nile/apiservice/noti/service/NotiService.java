@@ -184,6 +184,12 @@ public class NotiService {
         return new NotiDto(this.onlyQuerydslNotiRepository.onlyquerydslFindByNotiId(noti_id).orElseThrow(NotiNotFoundException::new));
     }
 
+    public List<NotiDto> getQdslNotiByTitleOrBodyInOnlyRepository(String title, String body) {
+        return this.onlyQuerydslNotiRepository.onlyquerydslFindByTitleOrBody(title, body).stream().map(
+            noti -> new NotiDto(noti)
+        ).collect(Collectors.toList());
+    }
+
     /**
      * ! 미사용(2021.06.23)
      */
