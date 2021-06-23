@@ -17,6 +17,7 @@ google-search: jpa querydsl procedure pagination
 https://freedeveloper.tistory.com/28
 https://velog.io/@junho918/Querydsl-%EC%8B%A4%EC%A0%84-Querydsl
 google-search: jpa page entity change
+google-search: jpa restcontroller page return
 
 ## 읽어 볼 것
 https://jojoldu.tistory.com/165?category=637935
