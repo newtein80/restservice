@@ -13,6 +13,8 @@ import com.nile.apiservice.noti.dto.NotiDto;
 import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.service.NotiService;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -293,6 +295,22 @@ public class NotiController {
     ) {
         // todo: requestparam 에 굳이 값을 넣지 않아도 되도록 하는 방법 ex. defaultvalue 또는 optional 같은 방법인 있는지???
         return this.notiService.getQdslNotiByTitleOrBodyInOnlyRepository(title, body);
+    }
+
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslonly/searchtitlebodywithpage")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Page<NotiDto> getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String title,
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String body,
+        final Pageable pageable
+    ) {
+        // todo: requestparam 에 굳이 값을 넣지 않아도 되도록 하는 방법 ex. defaultvalue 또는 optional 같은 방법인 있는지???
+        // ! https://www.popit.kr/spring-boot-jpa-%ED%8E%98%EC%9D%B4%EC%A7%95-api-%EB%A7%8C%EB%93%A4%EA%B8%B0/
+        // todo: itemcontroller.java 참고
+        // ! count 쿼리를 효율적으로 하는 방법 또는 대체 할 수 있는 방법
+        return this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
     }
 
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {

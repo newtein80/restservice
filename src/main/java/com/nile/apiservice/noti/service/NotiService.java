@@ -3,7 +3,6 @@ package com.nile.apiservice.noti.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +14,8 @@ import com.nile.apiservice.noti.repository.OnlyQuerydslNotiRepository;
 import com.nile.apiservice.noti.repository.QuerydslNotiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -188,6 +189,12 @@ public class NotiService {
         return this.onlyQuerydslNotiRepository.onlyquerydslFindByTitleOrBody(title, body).stream().map(
             noti -> new NotiDto(noti)
         ).collect(Collectors.toList());
+    }
+
+    // ! https://velog.io/@junho918/Spring-Data-Jpa-JPA..%EA%B7%B8%EB%9E%98-%EC%95%8C%EA%B2%A0%EC%96%B4..-%EA%B7%B8%EB%9E%98%EC%84%9C-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%93%B0%EB%8A%94%EB%8D%B0
+    public Page<NotiDto> getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(String title, String body, Pageable pageable) {
+        Page<Noti> pageNoti = this.onlyQuerydslNotiRepository.onlyquerydslFindByTitleOrBodyWithPaging(title, body, pageable);
+        return pageNoti.map(noti -> new NotiDto(noti));
     }
 
     /**
