@@ -10,6 +10,7 @@ import com.nile.apiservice.noti.dto.NotiDto;
 import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.exception.exceptions.NotiNotFoundException;
 import com.nile.apiservice.noti.repository.NotiRepository;
+import com.nile.apiservice.noti.repository.QuerydslNotiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class NotiService {
      */
     
     @Autowired NotiRepository notiRepository;
+    @Autowired QuerydslNotiRepository querydslNotiRepository;
 
     public NotiService() {
         super();
@@ -149,6 +151,12 @@ public class NotiService {
 
     public Object getEmspqNProcGetNotiInfoCursor(long id) {
         return this.notiRepository.emspqGetNotiInfoCursor(id);
+    }
+
+    public List<NotiDto> getQdslNotiByTitle(String noti_title) {
+        return this.querydslNotiRepository.querydslFindByNotititle(noti_title).stream().map(
+            noti -> new NotiDto(noti)
+        ).collect(Collectors.toList());
     }
 
     /**
