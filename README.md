@@ -14,6 +14,10 @@ https://jessyt.tistory.com/55
 google-search: jpa querydsl procedure pagination
 https://freedeveloper.tistory.com/28
 
+## 읽어 볼 것
+https://jojoldu.tistory.com/165?category=637935
+https://kkambi.tistory.com/193
+
 https://www.youtube.com/watch?v=ePCeuiIJbBI
 https://www.youtube.com/watch?v=HgB90XUmpeE
 https://www.youtube.com/watch?v=wJBAFZv_KN0
