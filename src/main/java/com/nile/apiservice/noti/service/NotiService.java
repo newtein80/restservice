@@ -3,6 +3,7 @@ package com.nile.apiservice.noti.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -171,6 +172,16 @@ public class NotiService {
         return this.onlyQuerydslNotiRepository.onlyquerydslFindByNotiTitle(noti_title).stream().map(
             noti -> new NotiDto(noti)
         ).collect(Collectors.toList());
+    }
+
+    // todo: Optional 이 리턴인 service(or repository)에서 반환받은 값을 어떻게 처리하는지? orElse, ifPresent, isPresent 등등등
+    // todo: api response 에서 trace 빼는 법?
+    // public Optional<NotiDto> getQdslNotiByNotiIdOnlyRepository(Long noti_id) {
+    //     return Optional.of(new NotiDto(this.onlyQuerydslNotiRepository.onlyquerydslFindByNotiId(noti_id).orElse(new Noti())));
+    // }
+
+    public NotiDto getQdslNotiByNotiIdOnlyRepository(Long noti_id) {
+        return new NotiDto(this.onlyQuerydslNotiRepository.onlyquerydslFindByNotiId(noti_id).orElseThrow(NotiNotFoundException::new));
     }
 
     /**

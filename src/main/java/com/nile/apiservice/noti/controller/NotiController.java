@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import com.nile.apiservice.noti.dto.NotiDto;
+import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.service.NotiService;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -271,6 +272,15 @@ public class NotiController {
         @Parameter(name = "알림 제목", required = true, example = "검색어") @RequestParam String title
     ) {
         return this.notiService.getQdslNotiByTitleInOnlyRepository(title);
+    }
+
+    @Operation(summary = "샘플 상세 - @Query : getById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @GetMapping("/qdslonly/findid/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public NotiDto getQdslNotiByNotiIdInOnlyRepository(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getQdslNotiByNotiIdOnlyRepository(id);
     }
 
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
