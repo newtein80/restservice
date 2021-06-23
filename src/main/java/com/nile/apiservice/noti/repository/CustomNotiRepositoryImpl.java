@@ -36,7 +36,7 @@ public class CustomNotiRepositoryImpl implements CustomNotiRepository{
     @SuppressWarnings("unchecked")
     public List<Noti> emspqGetNotiInfoCursor(Long noti_id) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("noti.getnotidetailreturncursorbynamedproc");
-        storedProcedureQuery.setParameter(1, noti_id);
+        storedProcedureQuery.setParameter(2, noti_id);
         // storedProcedureQuery.setParameter(2, noti_id); // * 위의 NamedStoredProcedure 선언된 곳의 param 순서에 맞게 set 하여도 된다.
         storedProcedureQuery.execute();
         // todo: 아래의 경고 문구 해결 방법?

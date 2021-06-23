@@ -69,8 +69,9 @@ import lombok.Setter;
         name = "noti.getnotidetailreturncursorbynamedproc",
         procedureName = "rest.getnotidetailreturncursor", resultClasses = {Noti.class},
         parameters = {
-            @StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class),
-            @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = void.class)
+            // ! parameters 의 선언 순서가 제일 중요!
+            @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = void.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class)
         }
     )
 })
