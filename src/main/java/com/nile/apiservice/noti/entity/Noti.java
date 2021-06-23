@@ -64,6 +64,14 @@ import lombok.Setter;
         parameters = {
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "i_noti_id", type = Long.class)
         }
+    ),
+    @NamedStoredProcedureQuery(
+        name = "noti.getnotidetailreturncursorbynamedproc",
+        procedureName = "rest.getnotidetailreturncursor", resultClasses = {Noti.class},
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class),
+            @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = void.class)
+        }
     )
 })
 public class Noti {

@@ -145,7 +145,15 @@ public class NotiService {
 
     public Object getEmspqNProcGetNotiInfoTbl(long id) {
         return this.notiRepository.emspqGetNotiInfo(id);
-    } 
+    }
+
+    public Object getEmspqNProcGetNotiInfoCursor(long id) {
+        return this.notiRepository.emspqGetNotiInfoCursor(id);
+    }
+
+    public Object getEmspqNProcGetNotiInfoCursor2(long id) {
+        return this.notiRepository.emspqGetNotiInfoCursor2(id);
+    }
 
     /**
      * ! 미사용(2021.06.23)

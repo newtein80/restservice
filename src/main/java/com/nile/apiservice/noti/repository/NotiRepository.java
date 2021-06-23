@@ -57,4 +57,7 @@ public interface NotiRepository extends JpaRepository<Noti, Long>, CustomNotiRep
     @Procedure(name = "noti.getnotidetailreturntablesetbynamedproc")
     Map<String, ?> nprocGetNotiInfoTbl(long i_noti_id);
 
+    @Procedure(name = "noti.getnotidetailreturncursorbynamedproc")
+    List<Noti> emspqGetNotiInfoCursor2(@Param("i_noti_id") long i_noti_id);
+
 }
