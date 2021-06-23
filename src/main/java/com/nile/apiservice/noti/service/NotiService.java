@@ -135,6 +135,10 @@ public class NotiService {
         return this.notiRepository.nprocGetNotiInfo(id);
     }
 
+    public Map<String, ?> getQnProcGetNotiInfoTbl(long id) {
+        return this.notiRepository.qnprocGetNotiInfoTbl(id);
+    }
+
     /**
      * ! 미사용(2021.06.23)
      */
