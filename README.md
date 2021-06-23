@@ -28,9 +28,19 @@ https://kohen.tistory.com/4
 google-search: jpa querydsl pageable
 google-search: JPA Specification
 
+#### 우선
+인증, 토큰... 제외 상태
+
+# 배포
+1. CentOs 에서 jar 구동
+2. cors 설정.. 현재는 local에서 내부 호출만 할 것이기 때문에 cors 설정 안해도 상관없는지
+  - 없다면 안해도 됨 (당분간은 local 호출만 할 것임)
+
+
 #### 해야 할 것
 - jpa paging (pageable, page 사용)
 - exception
+- HATEOAS
 - jwt 토큰
 - 인증(사용자권한)
 

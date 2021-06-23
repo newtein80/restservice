@@ -13,7 +13,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -77,6 +79,8 @@ public class Noti {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name ="create_dt", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdt;
 
     @Column(name ="noti_detail", columnDefinition = "TEXT")

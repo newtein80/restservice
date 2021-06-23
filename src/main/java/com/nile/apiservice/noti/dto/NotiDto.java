@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.nile.apiservice.noti.entity.Noti;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @Schema(name = "알림 정보 DTO", description = "알림 정보 - 요청/응답")
 public class NotiDto {
+
+    public NotiDto(Noti noti) {
+        this.id = noti.getId();
+        this.sender_user_id = noti.getSenderuserid();
+        this.sender_user_nm = noti.getSenderusernm();
+        this.noti_type = noti.getNotitype();
+        this.noti_title = noti.getNotititle();
+        this.noti_body = noti.getNotibody();
+        this.recipient_user_id = noti.getRecipientuserid();
+        this.recipient_user_nm = noti.getRecipientusernm();
+        this.create_dt = noti.getCreatedt();
+    }
+
     @NotBlank
     @NotNull
     @Schema(name="알림KEY", description = "알림PK", required = true, example = "ex) 1", nullable = false)

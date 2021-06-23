@@ -2,6 +2,7 @@ package com.nile.apiservice.noti.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.nile.apiservice.noti.dto.NotiDto;
@@ -47,7 +48,8 @@ public class NotiService {
         // ! https://goddaehee.tistory.com/209
         // return this.notiRepository.findById(id).orElseGet(Noti::new);
         Noti noti = this.notiRepository.findById(id).orElseThrow(NotiNotFoundException::new);
-        return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
+        // return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
+        return new NotiDto(noti);
     }
 
     @Transactional(readOnly = true)
@@ -55,30 +57,64 @@ public class NotiService {
         // return this.notiRepository.findAll();
         return this.notiRepository.findAll().stream().map(
             // todo: 아래의 구문을 NotiDto의 생성자를 사용하여 변경하는 방법으로 변경
-            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
     }
 
     public List<NotiDto> getSearchNotiCreateDtBetween(Date startdate, Date enddate) {
         return this.notiRepository.findByCreatedtBetween(startdate, enddate).stream().map(
-            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
+            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
     }
 
     public List<NotiDto> getSearchNotiCreateDtAfter(Date startdate) {
         return this.notiRepository.findByCreatedtAfter(startdate).stream().map(
-            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
+            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
     }
 
     public List<NotiDto> getSearchNotiCreateDtBefore(Date enddate) {
         return this.notiRepository.findByCreatedtBefore(enddate).stream().map(
-            noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())            
+            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
+    }
+
+    public NotiDto getQcNotiById(long id) {
+        Noti noti = this.notiRepository.qcGetById(id); // todo: exception throw 필요
+        // return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
+        return new NotiDto(noti);
+    }
+
+    public List<NotiDto> getQcNotiByIds(Set<Long> ids) {
+        return this.notiRepository.qcGetByIds(ids).stream().map(
+            noti -> new NotiDto(noti)
+        )
+        .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<NotiDto> getQcAllNotis() {
+        // return this.notiRepository.findAll();
+        return this.notiRepository.qcGetAllNoti().stream().map(
+            // todo: 아래의 구문을 NotiDto의 생성자를 사용하여 변경하는 방법으로 변경
+            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
+            noti -> new NotiDto(noti)
+        )
+        .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Object[]> getQcNotiByTitleOrBody(String searchstr) {
+        // return this.notiRepository.findAll();
+        return this.notiRepository.qcGetNotiByTitleOrBody(searchstr);
     }
 
     public Noti addNoti(Noti noti) {
