@@ -8,6 +8,12 @@
 - FLYWAY
 - HATEOAS
 
+https://jojoldu.tistory.com/372
+https://velog.io/@recordsbeat/QueryDSL%EB%A1%9C-%EA%B2%80%EC%83%89-%ED%8E%98%EC%9D%B4%EC%A7%95-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
+https://jessyt.tistory.com/55
+google-search: jpa querydsl procedure pagination
+https://freedeveloper.tistory.com/28
+
 https://www.youtube.com/watch?v=ePCeuiIJbBI
 https://www.youtube.com/watch?v=HgB90XUmpeE
 https://www.youtube.com/watch?v=wJBAFZv_KN0
