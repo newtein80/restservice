@@ -211,6 +211,29 @@ public class NotiController {
         return this.notiService.getQnProcGetNotiInfoTbl(id);
     }
 
+    /**
+     * ! return Empty !!!
+     * @param id
+     * @return
+     */
+    @Operation(summary = "샘플 상세 - @Query : getById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @GetMapping("/nproc/notitbl/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, ?> getNProcNotiInfoTbl(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getNProcGetNotiInfoTbl(id);
+    }
+
+    @Operation(summary = "샘플 상세 - @Query : getById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @GetMapping("/em/nproc/notitbl/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Object getEmspqNProcNotiInfoTbl(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getEmspqNProcGetNotiInfoTbl(id);
+    }
+
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();

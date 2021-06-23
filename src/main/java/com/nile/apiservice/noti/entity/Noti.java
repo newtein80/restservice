@@ -3,6 +3,8 @@ package com.nile.apiservice.noti.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nile.apiservice.noti.dto.NotiInfoResultSet;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +36,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(schema = "rest", name="t_notification")
+@SqlResultSetMapping(
+    name = "defNotiInfoResultset"
+    , classes = {
+        @ConstructorResult(
+            targetClass = NotiInfoResultSet.class,
+            columns = {
+                @ColumnResult(name = "noti_title"),
+                @ColumnResult(name = "noti_body")
+            }
+        )
+    }
+)
 @NamedStoredProcedureQueries({
     @NamedStoredProcedureQuery(
         name = "noti.getnotidetailbynamedproc",
@@ -40,6 +56,13 @@ import lombok.Setter;
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "i_noti_id", type = Long.class),
             @StoredProcedureParameter(mode = ParameterMode.OUT, name = "o_noti_title", type = String.class),
             @StoredProcedureParameter(mode = ParameterMode.OUT, name = "o_noti_body", type = String.class)
+        }
+    ),
+    @NamedStoredProcedureQuery(
+        name = "noti.getnotidetailreturntablesetbynamedproc",
+        procedureName = "rest.getnotidetailreturntableset", resultSetMappings = {"defNotiInfoResultset"},
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "i_noti_id", type = Long.class)
         }
     )
 })
