@@ -8,4 +8,5 @@ import com.nile.apiservice.noti.entity.Noti;
 public interface CustomNotiRepository {
     List<NotiInfoResultSet> emspqGetNotiInfo(Long noti_id);
     List<Noti> emspqGetNotiInfoCursor(Long noti_id);
+    List<Noti> querydslFindByNotititleInCustom(String noti_title);
 }

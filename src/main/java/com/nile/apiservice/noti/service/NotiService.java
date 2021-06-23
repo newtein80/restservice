@@ -159,6 +159,12 @@ public class NotiService {
         ).collect(Collectors.toList());
     }
 
+    public List<NotiDto> getQdslNotiByTitleInCustom(String noti_title) {
+        return this.notiRepository.querydslFindByNotititleInCustom(noti_title).stream().map(
+            noti -> new NotiDto(noti)
+        ).collect(Collectors.toList());
+    }
+
     /**
      * ! 미사용(2021.06.23)
      */

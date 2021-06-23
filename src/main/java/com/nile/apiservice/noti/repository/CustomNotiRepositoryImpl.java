@@ -8,11 +8,13 @@ import javax.persistence.StoredProcedureQuery;
 
 import com.nile.apiservice.noti.dto.NotiInfoResultSet;
 import com.nile.apiservice.noti.entity.Noti;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.query.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.nile.apiservice.noti.entity.QNoti.noti;
 
 @Repository
 @Transactional
@@ -20,6 +22,9 @@ public class CustomNotiRepositoryImpl implements CustomNotiRepository{
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired
+    JPAQueryFactory jpaQueryFactory;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -41,6 +46,11 @@ public class CustomNotiRepositoryImpl implements CustomNotiRepository{
         storedProcedureQuery.execute();
         // todo: 아래의 경고 문구 해결 방법?
         return storedProcedureQuery.getResultList();
+    }
+
+    @Override
+    public List<Noti> querydslFindByNotititleInCustom(String noti_title) {
+        return jpaQueryFactory.selectFrom(noti).where(noti.notititle.eq(noti_title)).fetch();
     }
     
 }

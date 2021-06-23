@@ -253,6 +253,16 @@ public class NotiController {
         return this.notiService.getQdslNotiByTitle(title);
     }
 
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslcustom/searchtitle")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<NotiDto> getQdslNotiByTitleInCustom(
+        @Parameter(name = "알림 제목", required = true, example = "검색어") @RequestParam String title
+    ) {
+        return this.notiService.getQdslNotiByTitleInCustom(title);
+    }
+
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
