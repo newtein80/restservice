@@ -193,6 +193,15 @@ public class NotiController {
         return this.notiService.getQnProcGetNotiInfo(id);
     }
 
+    @Operation(summary = "샘플 상세 - @Query : getById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @GetMapping("/nproc/noti/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, ?> getNProcNotiInfo(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getNProcGetNotiInfo(id);
+    }
+
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();

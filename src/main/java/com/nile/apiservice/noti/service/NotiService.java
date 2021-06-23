@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class NotiService {
 
     /**
-     * ? annotation "@RequiredArgsConstructor + private final..." 과 @Autowired 차이
+     * todo: annotation "@RequiredArgsConstructor + private final..." 과 @Autowired 차이
      */
     
     @Autowired NotiRepository notiRepository;
@@ -49,7 +49,6 @@ public class NotiService {
         // ! https://goddaehee.tistory.com/209
         // return this.notiRepository.findById(id).orElseGet(Noti::new);
         Noti noti = this.notiRepository.findById(id).orElseThrow(NotiNotFoundException::new);
-        // return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
         return new NotiDto(noti);
     }
 
@@ -66,7 +65,6 @@ public class NotiService {
 
     public List<NotiDto> getSearchNotiCreateDtBetween(Date startdate, Date enddate) {
         return this.notiRepository.findByCreatedtBetween(startdate, enddate).stream().map(
-            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
             noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
@@ -74,7 +72,6 @@ public class NotiService {
 
     public List<NotiDto> getSearchNotiCreateDtAfter(Date startdate) {
         return this.notiRepository.findByCreatedtAfter(startdate).stream().map(
-            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
             noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
@@ -82,7 +79,6 @@ public class NotiService {
 
     public List<NotiDto> getSearchNotiCreateDtBefore(Date enddate) {
         return this.notiRepository.findByCreatedtBefore(enddate).stream().map(
-            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
             noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
@@ -90,7 +86,6 @@ public class NotiService {
 
     public NotiDto getQcNotiById(long id) {
         Noti noti = this.notiRepository.qcGetById(id); // todo: exception throw 필요
-        // return new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt());
         return new NotiDto(noti);
     }
 
@@ -103,10 +98,8 @@ public class NotiService {
 
     @Transactional(readOnly = true)
     public List<NotiDto> getQcAllNotis() {
-        // return this.notiRepository.findAll();
         return this.notiRepository.qcGetAllNoti().stream().map(
             // todo: 아래의 구문을 NotiDto의 생성자를 사용하여 변경하는 방법으로 변경
-            // noti -> new NotiDto(noti.getId(), noti.getSenderuserid(), noti.getSenderusernm(), noti.getNotitype(), noti.getNotititle(), noti.getNotibody(), noti.getRecipientuserid(), noti.getRecipientusernm(), noti.getCreatedt())
             noti -> new NotiDto(noti)
         )
         .collect(Collectors.toList());
@@ -114,13 +107,11 @@ public class NotiService {
 
     @Transactional(readOnly = true)
     public List<Object[]> getQcNotiByTitleOrBody(String searchstr) {
-        // return this.notiRepository.findAll();
         return this.notiRepository.qcGetNotiByTitleOrBody(searchstr);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // todo: @Transactional 사용하는 경우와 옵션들
     public List<Object[]> getQnNotiByTitleOrBody(String searchstr) {
-        // return this.notiRepository.findAll();
         return this.notiRepository.qnGetNotiByTitleOrBody(searchstr);
     }
 
@@ -140,6 +131,13 @@ public class NotiService {
         return this.notiRepository.qnprocGetNotiInfo(id);
     }
 
+    public Map<String, ?> getNProcGetNotiInfo(long id) {
+        return this.notiRepository.nprocGetNotiInfo(id);
+    }
+
+    /**
+     * ! 미사용(2021.06.23)
+     */
     public Noti addNoti(Noti noti) {
         return this.notiRepository.save(noti);
     }

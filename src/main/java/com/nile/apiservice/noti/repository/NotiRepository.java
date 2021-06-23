@@ -48,4 +48,7 @@ public interface NotiRepository extends JpaRepository<Noti, Long>, CustomNotiRep
     @Query(value = "select * from rest.getnotidetailbyqnproc(?1)", nativeQuery = true)
     Map<String, ?> qnprocGetNotiInfo(long id);
 
+    @Procedure(name = "noti.getnotidetailbynamedproc")
+    Map<String, ?> nprocGetNotiInfo(long i_noti_id);
+
 }
