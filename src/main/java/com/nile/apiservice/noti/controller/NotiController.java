@@ -3,6 +3,7 @@ package com.nile.apiservice.noti.controller;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class NotiController {
      * @param id 알림key
      * @return NotiDto 알림 상세 정보
      */
-    @Operation(summary = "샘플 상세 - jpa : findById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @Operation(summary = "샘플 상세 - jpa : findById", description = "<strong>샘플 상세 내용</strong>을 조회") // * description 에 html 태그 사용가능
     @GetMapping("/jpa/{id}")
     @ResponseStatus(HttpStatus.OK)
     public NotiDto getNoti(
@@ -145,6 +146,51 @@ public class NotiController {
         @Parameter(name = "알림KEY 배열", required = true, example = "1,2,3") @RequestBody Set<Long> ids
     ) {
         return this.notiService.getQcNotiByIds(ids);
+    }
+
+    @Operation(summary = "알림 현황 - @Query : getByTitleOrBody - navtice query", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qn/searchstr")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<Object[]> getQnNotiByTitleOrBody(
+        @Parameter(name = "검색문자열", required = false, example = "검색어") @RequestParam String searchstr
+    ) {
+        return this.notiService.getQnNotiByTitleOrBody(searchstr);
+    }
+
+    @Operation(summary = "알림 현황 - @Query : gettotalnoticount (procdure) - navtice query", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qnproc/totalnoticount")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public int getQnProcTotalNotiCount() {
+        return this.notiService.getQnProcGetTotalNotiCount();
+    }
+
+    @Operation(summary = "알림 현황 - @Query : gettotalnoticount (procdure) - navtice query", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/proc/totalnoticount")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public int getProcTotalNotiCount() {
+        return this.notiService.getProcGetTotalNotiCount();
+    }
+
+    @Operation(summary = "알림 현황 - @Query : gettotalnoticount (procdure) - navtice query", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/proc/notiid/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public int getQnProcNotiId(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getQnProcGetNotiId(id);
+    }
+
+    @Operation(summary = "샘플 상세 - @Query : getById", description = "<strong>샘플 상세 내용</strong>을 조회")
+    @GetMapping("/qnproc/noti/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, ?> getQnProcNotiInfo(
+        @Parameter(name = "샘플 KEY", required = true, example = "1")  @PathVariable long id
+    ) {
+        return this.notiService.getQnProcGetNotiInfo(id);
     }
 
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {

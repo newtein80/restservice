@@ -2,6 +2,7 @@ package com.nile.apiservice.noti.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -115,6 +116,28 @@ public class NotiService {
     public List<Object[]> getQcNotiByTitleOrBody(String searchstr) {
         // return this.notiRepository.findAll();
         return this.notiRepository.qcGetNotiByTitleOrBody(searchstr);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Object[]> getQnNotiByTitleOrBody(String searchstr) {
+        // return this.notiRepository.findAll();
+        return this.notiRepository.qnGetNotiByTitleOrBody(searchstr);
+    }
+
+    public int getQnProcGetTotalNotiCount() {
+        return this.notiRepository.qnprocGetTotalNotiCount();
+    }
+
+    public int getProcGetTotalNotiCount() {
+        return this.notiRepository.procGetTotalNotiCount();
+    }
+
+    public int getQnProcGetNotiId(long id) {
+        return this.notiRepository.qnprocGetNotiId(id);
+    }
+
+    public Map<String, ?> getQnProcGetNotiInfo(long id) {
+        return this.notiRepository.qnprocGetNotiInfo(id);
     }
 
     public Noti addNoti(Noti noti) {
