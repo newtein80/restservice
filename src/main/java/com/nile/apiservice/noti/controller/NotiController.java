@@ -9,8 +9,8 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.nile.apiservice.common.hateoas.LinkHrefUtil;
 import com.nile.apiservice.noti.dto.NotiDto;
-import com.nile.apiservice.noti.entity.Noti;
 import com.nile.apiservice.noti.service.NotiService;
 
 import org.springframework.data.domain.Page;
@@ -34,6 +34,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*; // https://imspear.tistory.com/82
 
 @RestController
 @RequiredArgsConstructor
@@ -340,6 +342,28 @@ public class NotiController {
         Page<NotiDto> pageNotiDto = this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
         PagedModel<EntityModel<NotiDto>> pagedModelNotiDto = pagedResourcesAssembler.toModel(pageNotiDto);
         // return new ResponseEntity<Page<NotiDto>>(this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable), HttpStatus.OK) ;
+        return ResponseEntity.ok(pagedModelNotiDto);
+    }
+
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslonly/searchtitlebodywithpage4")
+    public ResponseEntity<PagedModel<EntityModel<NotiDto>>> getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging4(
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String title,
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String body,
+        final Pageable pageable
+    ) {
+        // todo: ResponseEntity 로 반환하는 방법과 장점? httpEntity 와 다른점
+        Page<NotiDto> pageNotiDto = this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
+
+        PagedModel<EntityModel<NotiDto>> pagedModelNotiDto = LinkHrefUtil.getEntityModels(
+            pagedResourcesAssembler,
+            pageNotiDto,
+            // linkTo(methodOn(this.getClass()).getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging4(null, null, null)),
+            linkTo(methodOn(this.getClass()).getQdslNotiByNotiIdInOnlyRepository(0)), // todo: 되긴하는데 link가 이상하게 표시됨, self href 생성하는 법을 적용해야함
+            v -> v.getId() // NotiDto::getId
+        );
+        // https://imspear.tistory.com/84?category=861182
+        // return ResponseEntity.created(new URI(pagedModelNotiDto.getLink("self").orElse(new Link("self")).getHref())).ok(pagedModelNotiDto);
         return ResponseEntity.ok(pagedModelNotiDto);
     }
 
