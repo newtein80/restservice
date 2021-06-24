@@ -15,8 +15,12 @@ import com.nile.apiservice.noti.service.NotiService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +40,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/v1/nileapi/noti")
 public class NotiController {
 
-    private final NotiService notiService;
+    private final NotiService notiService; // ? https://2ham-s.tistory.com/278?category=786370
+    private final PagedResourcesAssembler<NotiDto> pagedResourcesAssembler;
 
     /**
      * 알림 현황 조회
@@ -311,6 +316,31 @@ public class NotiController {
         // todo: itemcontroller.java 참고
         // ! count 쿼리를 효율적으로 하는 방법 또는 대체 할 수 있는 방법
         return this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
+    }
+
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslonly/searchtitlebodywithpage2")
+    public ResponseEntity<Page<NotiDto>> getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging2(
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String title,
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String body,
+        final Pageable pageable
+    ) {
+        // todo: ResponseEntity 로 반환하는 방법과 장점? httpEntity 와 다른점
+        return new ResponseEntity<Page<NotiDto>>(this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable), HttpStatus.OK) ;
+    }
+
+    @Operation(summary = "알림 현황 - querydsl : getByIds", description = "<big>알림 현황</big>을 조회<br />- JPA default")
+    @GetMapping("/qdslonly/searchtitlebodywithpage3")
+    public ResponseEntity<PagedModel<EntityModel<NotiDto>>> getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging3(
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String title,
+        @Parameter(name = "알림 제목", required = false, example = "검색어") @RequestParam String body,
+        final Pageable pageable
+    ) {
+        // todo: ResponseEntity 로 반환하는 방법과 장점? httpEntity 와 다른점
+        Page<NotiDto> pageNotiDto = this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
+        PagedModel<EntityModel<NotiDto>> pagedModelNotiDto = pagedResourcesAssembler.toModel(pageNotiDto);
+        // return new ResponseEntity<Page<NotiDto>>(this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable), HttpStatus.OK) ;
+        return ResponseEntity.ok(pagedModelNotiDto);
     }
 
     public Date setDateCalculate(Date inputdate, String datetype, int addday) {
