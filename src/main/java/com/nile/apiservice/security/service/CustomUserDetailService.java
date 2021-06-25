@@ -11,11 +11,15 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class CustomUserDetailService implements UserDetailsService {
+public class CustomUserDetailService { // ! Member 패키지의 것과 중복  implements UserDetailsService 코드 삭제
 
     private final UserJpaRepository userJpaRepository;
 
     public UserDetails loadUserByUsername(String userPk) {
         return userJpaRepository.findById(Long.valueOf(userPk)).orElseThrow(CUserNotFoundException::new);
+    }
+
+    public void signUpUser() {
+        
     }
 }
