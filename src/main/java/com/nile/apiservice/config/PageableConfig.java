@@ -19,9 +19,9 @@ public class PageableConfig implements WebMvcConfigurer{
     //     resolvers.add(new PageableArgumentResolver());
     // }
 
-    // @Bean(name="customPageResourceAssembler")
-    // @Primary
-    // public CustomPageResourceAssembler<?> customPagedResourceAssembler(){
-    //     return new CustomPageResourceAssembler<>(new HateoasPageableHandlerMethodArgumentResolver(),10);
-    // }
+    @Bean(name="customPageResourceAssembler")
+    @Primary // https://namocom.tistory.com/695
+    public CustomPageResourceAssembler<?> customPagedResourceAssembler(){
+        return new CustomPageResourceAssembler<>(new HateoasPageableHandlerMethodArgumentResolver(),10);
+    }
 }

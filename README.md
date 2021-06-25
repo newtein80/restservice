@@ -1,12 +1,13 @@
 ### NILE REST API SERVICE APPLICATION
 - SPRING BOOT
-  - DEVTOOLS
-  - JPA
+- JPA
 - SWAGGER
-- LOMBOK
 - QUERYDSL
 - FLYWAY
-- HATEOAS
+
+
+- ETag
+- Ehcache
 
 #### 우선
 인증, 토큰... 제외 상태

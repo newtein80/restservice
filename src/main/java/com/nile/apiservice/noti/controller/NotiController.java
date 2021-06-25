@@ -341,7 +341,6 @@ public class NotiController {
         // todo: ResponseEntity 로 반환하는 방법과 장점? httpEntity 와 다른점
         Page<NotiDto> pageNotiDto = this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable);
         PagedModel<EntityModel<NotiDto>> pagedModelNotiDto = pagedResourcesAssembler.toModel(pageNotiDto);
-        // return new ResponseEntity<Page<NotiDto>>(this.notiService.getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging(title, body, pageable), HttpStatus.OK) ;
         return ResponseEntity.ok(pagedModelNotiDto);
     }
 
@@ -359,7 +358,8 @@ public class NotiController {
             pagedResourcesAssembler,
             pageNotiDto,
             // linkTo(methodOn(this.getClass()).getQdslNotiByTitleOrBodyInOnlyRepositoryWithPaging4(null, null, null)),
-            linkTo(methodOn(this.getClass()).getQdslNotiByNotiIdInOnlyRepository(0)), // todo: 되긴하는데 link가 이상하게 표시됨, self href 생성하는 법을 적용해야함
+            // linkTo(methodOn(this.getClass()).getQdslNotiByNotiIdInOnlyRepository(0)), // todo: 되긴하는데 link가 이상하게 표시됨, self href 생성하는 법을 적용해야함
+            linkTo(methodOn(this.getClass()).getQcAllNotis()),
             v -> v.getId() // NotiDto::getId
         );
         // https://imspear.tistory.com/84?category=861182
