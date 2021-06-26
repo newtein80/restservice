@@ -21,7 +21,7 @@ public class MemberEventService {
                 .ifPresent(entity -> {
                     // entity.addAge();
                     memberRepository.save(entity);
-                    customEventPublisher.publish("member name is " + entity.getName());
+                    // customEventPublisher.publish("member name is " + entity.getName()); // @DomainEvents 사용하는 방법으로 했으므로 삭제
                 });
     }
 }

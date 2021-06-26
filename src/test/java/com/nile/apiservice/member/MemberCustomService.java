@@ -33,6 +33,7 @@ public class MemberCustomService {
 
         memberEventService.addAge("asdfet");
 
+        // todo: 안됨..ㅠ
         // Mockito.verify(customEventListener, times(1)).onApplicationEvent(any(CustomEvent.class));
     }
 }

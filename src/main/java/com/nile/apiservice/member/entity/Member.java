@@ -1,5 +1,7 @@
 package com.nile.apiservice.member.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,14 +16,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.nile.apiservice.event.events.CustomEvent;
 import com.nile.apiservice.member.encryt.Salt;
 import com.nile.apiservice.member.entity.enums.UserRole;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.domain.AbstractAggregateRoot;
+import org.springframework.data.domain.AfterDomainEventPublication;
+import org.springframework.data.domain.DomainEvents;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +41,23 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class Member {
+public class Member { //  extends AbstractAggregateRoot<Member> 사용해도 됨 --> 코드량이 줄어듬
+
+    // -- AbstractAggregateRoot
+    @Transient
+    private final Collection<CustomEvent> customEvents;
+
+    @DomainEvents
+    public Collection<CustomEvent> events() {
+        return customEvents;
+    }
+
+    @AfterDomainEventPublication
+    public void clearEvents() {
+        customEvents.clear();
+    }
+    // --
+
     @Id
     @GeneratedValue
     private int seq;
@@ -71,6 +94,7 @@ public class Member {
     private Salt salt;
 
     public Member() {
+        customEvents = new ArrayList<>();
     }
 
     public Member(@NotBlank String username, @NotBlank String password, @NotBlank String name, @NotBlank String email, @NotBlank String address) {
@@ -79,6 +103,13 @@ public class Member {
         this.name = name;
         this.email = email;
         this.address = address;
+        this.customEvents = new ArrayList<>();
+    }
+
+    public void reName() {
+        this.name = "reName";
+        customEvents.add(new CustomEvent(this, "user name changed : " + this.name));
+        // registerEvent(new CustomEvent(this, "user name changed : " + this.name)); // extends AbstractAggregateRoot<Member> 사용
     }
 
     @Override
