@@ -10,6 +10,7 @@ import com.nile.apiservice.member.dto.RequestLoginUser;
 import com.nile.apiservice.member.dto.RequestVerifyEmail;
 import com.nile.apiservice.member.entity.Member;
 import com.nile.apiservice.member.entity.Response;
+import com.nile.apiservice.member.repository.MemberRepository;
 import com.nile.apiservice.member.service.AuthService;
 import com.nile.apiservice.member.service.CookieUtil;
 import com.nile.apiservice.member.service.JwtUtil;

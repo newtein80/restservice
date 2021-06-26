@@ -23,6 +23,8 @@ import com.nile.apiservice.member.entity.enums.UserRole;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,8 @@ import lombok.Setter;
 @Table(schema = "rest", name = "members")
 @Getter
 @Setter
+@AllArgsConstructor
+@Builder
 public class Member {
     @Id
     @GeneratedValue

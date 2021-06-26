@@ -72,6 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(ccustomAccessDeniedHandler)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/v1/nileapi/event/**").permitAll()
                 .antMatchers("/user/signup").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/verify/**").permitAll()
